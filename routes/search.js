@@ -6,6 +6,10 @@ const { hasAdminRole } = require("../middlewares/validate-Role");
 
 const router = Router();
 
-router.get("/:collection/:term", [validateJWT, validateFields], search);
+router.get(
+	"/:collection/:term",
+	[validateJWT, hasAdminRole, validateFields],
+	search
+);
 
 module.exports = router;
