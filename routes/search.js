@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { search } = require("../controllers/search");
 const { validateJWT } = require("../middlewares/validate-JWT");
 const { validateFields } = require("../middlewares/validate-fields");
-const { hasAdminRole } = require("../middlewares/validate-Role");
+const { hasAdminRole } = require("../middlewares/validate-role");
 
 const router = Router();
 
