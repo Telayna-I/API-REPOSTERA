@@ -58,7 +58,7 @@ const orderSchema = Schema({
 });
 
 orderSchema.methods.toJSON = function () {
-	const { __v, status, ...order } = this.toObject();
+	const { __v, ...order } = this.toObject();
 
 	return order;
 };
