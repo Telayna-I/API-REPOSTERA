@@ -4,14 +4,8 @@ const Order = require("../models/order");
 const getOrders = async (req = request, res = response) => {
 	try {
 		const [total, orders] = await Promise.all([
-			Order.countDocuments({
-				$or: [{ status: true }],
-				$and: [{ finished: false }],
-			}),
-			Order.find({
-				$or: [{ status: true }],
-				$and: [{ finished: false }],
-			}).populate("user", "name"),
+			Order.countDocuments(),
+			Order.find().populate("user", "name"),
 		]);
 
 		res.status(200).json({
@@ -42,14 +36,8 @@ const getOrderById = async (req = request, res = response) => {
 const getFinishedOrders = async (req = request, res = response) => {
 	try {
 		const [total, orders] = await Promise.all([
-			Order.countDocuments({
-				$or: [{ status: true }],
-				$and: [{ finished: true }],
-			}),
-			Order.find({
-				$or: [{ status: true }],
-				$and: [{ finished: true }],
-			}).populate("user", "name"),
+			Order.countDocuments(),
+			Order.find().populate("user", "name"),
 		]);
 
 		res.status(200).json({
@@ -66,12 +54,8 @@ const getFinishedOrders = async (req = request, res = response) => {
 const getDeletedOrders = async (req = request, res = response) => {
 	try {
 		const [total, orders] = await Promise.all([
-			Order.countDocuments({
-				$or: [{ status: false }],
-			}),
-			Order.find({
-				$or: [{ status: false }],
-			}).populate("user", "name"),
+			Order.countDocuments(),
+			Order.find().populate("user", "name"),
 		]);
 
 		res.status(200).json({

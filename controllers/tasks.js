@@ -4,14 +4,8 @@ const Task = require("../models/task");
 const getTasks = async (req = request, res = response) => {
 	try {
 		const [total, tasks] = await Promise.all([
-			Task.countDocuments({
-				$or: [{ status: true }],
-				$and: [{ finished: false }],
-			}),
-			Task.find({
-				$or: [{ status: true }],
-				$and: [{ finished: false }],
-			}),
+			Task.countDocuments(),
+			Task.find(),
 		]);
 
 		res.status(200).json({
@@ -28,14 +22,8 @@ const getTasks = async (req = request, res = response) => {
 const getFinishedTasks = async (req = request, res = response) => {
 	try {
 		const [total, tasks] = await Promise.all([
-			Task.countDocuments({
-				$or: [{ status: true }],
-				$and: [{ finished: true }],
-			}),
-			Task.find({
-				$or: [{ status: true }],
-				$and: [{ finished: true }],
-			}),
+			Task.countDocuments(),
+			Task.find(),
 		]);
 
 		res.status(200).json({
@@ -52,12 +40,8 @@ const getFinishedTasks = async (req = request, res = response) => {
 const getDeletedTasks = async (req = request, res = response) => {
 	try {
 		const [total, tasks] = await Promise.all([
-			Task.countDocuments({
-				$or: [{ status: false }],
-			}),
-			Task.find({
-				$or: [{ status: false }],
-			}),
+			Task.countDocuments(),
+			Task.find(),
 		]);
 
 		res.status(200).json({

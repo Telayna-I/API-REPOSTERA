@@ -17,8 +17,6 @@ const {
 const router = Router();
 
 router.get("/", [validateJWT], getTasks);
-router.get("/finished", [validateJWT], getFinishedTasks);
-router.get("/deleted", [validateJWT], getDeletedTasks);
 
 router.post(
 	"/",
