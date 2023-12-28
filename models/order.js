@@ -17,8 +17,8 @@ const orderSchema = Schema({
 		required: true,
 	},
 	dateOfOrder: {
-		type: Date,
-		default: Date.now,
+		type: String,
+		default: new Date().toLocaleDateString(),
 	},
 	date: {
 		type: String,

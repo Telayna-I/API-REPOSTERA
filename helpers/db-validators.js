@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Role = require("../models/role");
 const Order = require("../models/order");
+const Task = require("../models/task");
 
 const validateEmail = async (email = "") => {
 	try {
@@ -31,8 +32,16 @@ const validateId = async (id) => {
 	}
 };
 
+const validateTaskId = async (id) => {
+	const idExist = await Task.findById({ _id: id });
+	if (!idExist) {
+		throw new Error(`El ${id} no se encuentra registrado`);
+	}
+};
+
 module.exports = {
 	validateEmail,
 	isValidRole,
 	validateId,
+	validateTaskId,
 };
