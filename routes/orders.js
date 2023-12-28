@@ -2,8 +2,6 @@ const { Router } = require("express");
 const {
 	createOrder,
 	getOrders,
-	getFinishedOrders,
-	getDeletedOrders,
 	updateOrder,
 	finishOrder,
 	deleteOrder,
@@ -18,6 +16,7 @@ const { validateId } = require("../helpers/db-validators");
 const router = Router();
 
 router.get("/", [validateJWT], getOrders);
+
 router.get(
 	"/order/:id",
 	[
@@ -27,8 +26,6 @@ router.get(
 	],
 	getOrderById
 );
-router.get("/finished", [validateJWT], getFinishedOrders);
-router.get("/deleted", [validateJWT], getDeletedOrders);
 
 router.post(
 	"/",
