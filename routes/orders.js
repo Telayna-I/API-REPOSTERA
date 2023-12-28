@@ -19,7 +19,7 @@ const router = Router();
 
 router.get("/", [validateJWT], getOrders);
 router.get(
-	"/:id",
+	"/order/:id",
 	[
 		check("id", "No es un id valido").isMongoId(),
 		check("id").custom(validateId),
