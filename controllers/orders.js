@@ -25,7 +25,7 @@ const getOrderById = async (req = request, res = response) => {
 	try {
 		const order = await Order.findById(id);
 
-		res.status(200).json({ finished: order.finished });
+		res.status(200).json({ order });
 	} catch (error) {
 		res.status(500).json({
 			error,
