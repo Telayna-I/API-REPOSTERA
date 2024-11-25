@@ -4,14 +4,8 @@ const Order = require("../models/order");
 const getOrders = async (req = request, res = response) => {
 	try {
 		const [total, orders] = await Promise.all([
-			Order.countDocuments({
-				$or: [{ status: true }],
-				$and: [{ finished: false }],
-			}),
-			Order.find({
-				$or: [{ status: true }],
-				$and: [{ finished: false }],
-			}).populate("user", "name"),
+			Order.countDocuments(),
+			Order.find().populate("user", "name"),
 		]);
 
 		res.status(200).json({
@@ -25,17 +19,25 @@ const getOrders = async (req = request, res = response) => {
 	}
 };
 
+const getOrderById = async (req = request, res = response) => {
+	const { id } = req.params;
+
+	try {
+		const order = await Order.findById(id);
+
+		res.status(200).json({ order });
+	} catch (error) {
+		res.status(500).json({
+			error,
+		});
+	}
+};
+
 const getFinishedOrders = async (req = request, res = response) => {
 	try {
 		const [total, orders] = await Promise.all([
-			Order.countDocuments({
-				$or: [{ status: true }],
-				$and: [{ finished: true }],
-			}),
-			Order.find({
-				$or: [{ status: true }],
-				$and: [{ finished: true }],
-			}).populate("user", "name"),
+			Order.countDocuments(),
+			Order.find().populate("user", "name"),
 		]);
 
 		res.status(200).json({
@@ -52,12 +54,8 @@ const getFinishedOrders = async (req = request, res = response) => {
 const getDeletedOrders = async (req = request, res = response) => {
 	try {
 		const [total, orders] = await Promise.all([
-			Order.countDocuments({
-				$or: [{ status: false }],
-			}),
-			Order.find({
-				$or: [{ status: false }],
-			}).populate("user", "name"),
+			Order.countDocuments(),
+			Order.find().populate("user", "name"),
 		]);
 
 		res.status(200).json({
@@ -114,7 +112,7 @@ const updateOrder = async (req = request, res = response) => {
 			new: true,
 		}).populate("user", "name");
 
-		res.json({ newOrder });
+		res.status(200).json({ newOrder });
 	} catch (error) {
 		res.status(500).json({
 			error,
@@ -126,15 +124,28 @@ const finishOrder = async (req = request, res = response) => {
 	const { id } = req.params;
 
 	try {
-		const order = await Order.findByIdAndUpdate(
-			id,
-			{
-				finished: true,
-			},
-			{ new: true }
-		).populate("user", "name");
+		const order = await Order.findById(id);
+		if (order.finished) {
+			const newOrder = await Order.findByIdAndUpdate(
+				id,
+				{
+					finished: false,
+				},
+				{ new: true }
+			).populate("user", "name");
 
-		res.json(order);
+			return res.status(200).json({ newOrder });
+		} else {
+			const newOrder = await Order.findByIdAndUpdate(
+				id,
+				{
+					finished: true,
+				},
+				{ new: true }
+			).populate("user", "name");
+
+			return res.status(200).json({ newOrder });
+		}
 	} catch (error) {
 		res.status(500).json({
 			error,
@@ -146,15 +157,28 @@ const deleteOrder = async (req = request, res = response) => {
 	const { id } = req.params;
 
 	try {
-		const order = await Order.findByIdAndUpdate(
-			id,
-			{
-				status: false,
-			},
-			{ new: true }
-		).populate("user", "name");
+		const order = await Order.findById(id);
+		if (order.status) {
+			const newOrder = await Order.findByIdAndUpdate(
+				id,
+				{
+					status: false,
+				},
+				{ new: true }
+			).populate("user", "name");
 
-		res.json(order);
+			return res.status(200).json({ newOrder });
+		} else {
+			const newOrder = await Order.findByIdAndUpdate(
+				id,
+				{
+					status: true,
+				},
+				{ new: true }
+			).populate("user", "name");
+
+			return res.status(200).json({ newOrder });
+		}
 	} catch (error) {
 		res.status(500).json({
 			error,
@@ -164,6 +188,7 @@ const deleteOrder = async (req = request, res = response) => {
 
 module.exports = {
 	getOrders,
+	getOrderById,
 	getFinishedOrders,
 	getDeletedOrders,
 	createOrder,

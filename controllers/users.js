@@ -5,7 +5,12 @@ const bcryptjs = require("bcryptjs");
 const createUser = async (req = request, res = response) => {
 	const { name, email, password, status, google, role } = req.body;
 
-	const user = new User({ name, email, password, role });
+	const user = new User({
+		name,
+		email: email.toLowerCase(),
+		password: password.toLowerCase(),
+		role,
+	});
 
 	const salt = bcryptjs.genSaltSync(10);
 	user.password = bcryptjs.hashSync(password, salt);

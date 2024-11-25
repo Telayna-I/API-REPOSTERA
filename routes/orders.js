@@ -2,11 +2,10 @@ const { Router } = require("express");
 const {
 	createOrder,
 	getOrders,
-	getFinishedOrders,
-	getDeletedOrders,
 	updateOrder,
 	finishOrder,
 	deleteOrder,
+	getOrderById,
 } = require("../controllers/orders");
 const { check } = require("express-validator");
 const { validateJWT } = require("../middlewares/validate-JWT");
@@ -17,8 +16,16 @@ const { validateId } = require("../helpers/db-validators");
 const router = Router();
 
 router.get("/", [validateJWT], getOrders);
-router.get("/finished", [validateJWT], getFinishedOrders);
-router.get("/deleted", [validateJWT], getDeletedOrders);
+
+router.get(
+	"/order/:id",
+	[
+		check("id", "No es un id valido").isMongoId(),
+		check("id").custom(validateId),
+		validateFields,
+	],
+	getOrderById
+);
 
 router.post(
 	"/",
@@ -40,6 +47,7 @@ router.put(
 	"/:id",
 	[
 		validateJWT,
+		check("id", "El id es obligatorio").not().isEmpty(),
 		check("id", "No es un id valido").isMongoId(),
 		check("id").custom(validateId),
 		validateFields,
@@ -49,13 +57,27 @@ router.put(
 
 router.put(
 	"/finished/:id",
-	[validateJWT, hasAdminRole, validateFields],
+	[
+		validateJWT,
+		hasAdminRole,
+		check("id", "El id es obligatorio").not().isEmpty(),
+		check("id", "No es un id valido").isMongoId(),
+		check("id").custom(validateId),
+		validateFields,
+	],
 	finishOrder
 );
 
 router.put(
 	"/delete/:id",
-	[validateJWT, hasAdminRole, validateFields],
+	[
+		validateJWT,
+		hasAdminRole,
+		check("id", "El id es obligatorio").not().isEmpty(),
+		check("id", "No es un id valido").isMongoId(),
+		check("id").custom(validateId),
+		validateFields,
+	],
 	deleteOrder
 );
 
