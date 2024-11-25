@@ -5,10 +5,9 @@ const { generateJwt } = require("../helpers/generate-Jwt");
 
 const logIn = async (req = request, res = response) => {
 	const { email, password } = req.body;
-	console.log(email, password);
 
 	try {
-		const user = await User.findOne({ email });
+		const user = await User.findOne({ email: email.toLowerCase() });
 
 		if (!user) {
 			return res.status(400).json({
