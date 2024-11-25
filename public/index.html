@@ -6,6 +6,196 @@
 		<title>API LA REPOSTERA</title>
 	</head>
 	<body>
-		<h1>API LA REPOSTERA</h1>
+		<h1>Documentación de la API Repostera</h1>
+		<h2>Endpoints</h2>
+
+		<h3>1. Autenticación</h3>
+		<h4>LogIn</h4>
+		<p><strong>Descripción:</strong> Autentica a un usuario y devuelve un token JWT.</p>
+		<p><strong>URL:</strong> <code>auth/login</code></p>
+		<p><strong>Método:</strong> <code>POST</code></p>
+		<p><strong>Body (JSON):</strong></p>
+		<pre><code>{
+  "email": "test1@gmail.com",
+  "password": "123456"
+}</code></pre>
+
+		<h3>2. Usuarios</h3>
+		<h4>Crear Usuario</h4>
+		<p><strong>Descripción:</strong> Crea un nuevo usuario con roles ADMIN o VENTAS.</p>
+		<p><strong>URL:</strong> <code>users</code></p>
+		<p><strong>Método:</strong> <code>POST</code></p>
+		<p><strong>Body (JSON):</strong></p>
+		<pre><code>{
+  "name": "Alejandra",
+  "email": "Alejandra@gmail.com",
+  "password": "123456",
+  "role": "ADMIN_ROLE"
+}</code></pre>
+
+		<h3>3. Pedidos</h3>
+		<h4>Crear Pedido</h4>
+		<p>
+			<strong>Descripción:</strong> Agrega un nuevo pedido al sistema.
+			<strong>Todos los campos son obligatorios</strong> en la creación.
+		</p>
+		<p><strong>URL:</strong> <code>orders</code></p>
+		<p><strong>Método:</strong> <code>POST</code></p>
+		<p><strong>Headers:</strong></p>
+		<ul>
+			<li><code>x-token: &lt;JWT Token&gt;</code></li>
+		</ul>
+		<p><strong>Body (JSON):</strong></p>
+		<pre><code>{
+  "name": "Juan Carlos Martinez",
+  "date": "20/11/2024",
+  "kilos": "2",
+  "notes": "pastel",
+  "product": "bizcochuelo",
+  "advance": 458,
+  "phone": "2932534436",
+  "hour": "22"
+}</code></pre>
+		<p><strong>Campos del body:</strong></p>
+		<ul>
+			<li><code>name</code> (string): Nombre del cliente.</li>
+			<li><code>date</code> (string): Fecha del pedido.</li>
+			<li><code>kilos</code> (string): Cantidad en kilos.</li>
+			<li><code>notes</code> (string): Notas adicionales.</li>
+			<li><code>product</code> (string): Producto solicitado.</li>
+			<li><code>advance</code> (number): Monto de anticipo.</li>
+			<li><code>phone</code> (string): Teléfono del cliente.</li>
+			<li><code>hour</code> (string): Hora del pedido.</li>
+		</ul>
+
+		<h4>Actualizar Pedido</h4>
+		<p>
+			<strong>Descripción:</strong> Modifica un pedido existente.
+			<strong>Todos los campos son opcionales</strong>, es decir, el body puede contener solo
+			los campos que se deseen actualizar.
+		</p>
+		<p><strong>URL:</strong> <code>orders/:id</code></p>
+		<p><strong>Método:</strong> <code>PUT</code></p>
+		<p><strong>Headers:</strong></p>
+		<ul>
+			<li><code>x-token: &lt;JWT Token&gt;</code></li>
+		</ul>
+		<p><strong>Body (JSON):</strong></p>
+		<pre><code>{
+  "name": "Nuevo nombre (opcional)",
+  "date": "Nueva fecha (opcional)",
+  "kilos": "Nueva cantidad en kilos (opcional)",
+  "notes": "Nuevas notas (opcional)",
+  "product": "Nuevo producto (opcional)",
+  "advance": 500,
+  "phone": "Nuevo teléfono (opcional)",
+  "hour": "Nueva hora (opcional)"
+}</code></pre>
+		<p>
+			<strong>Nota:</strong> Si no se incluye un campo en el body, el valor existente
+			permanecerá sin cambios.
+		</p>
+
+		<h4>Obtener Pedidos</h4>
+		<p><strong>Descripción:</strong> Lista todos los pedidos.</p>
+		<p><strong>URL:</strong> <code>orders</code></p>
+		<p><strong>Método:</strong> <code>GET</code></p>
+		<p><strong>Headers:</strong></p>
+		<ul>
+			<li><code>x-token: &lt;JWT Token&gt;</code></li>
+		</ul>
+
+		<h4>Obtener Pedido por ID</h4>
+		<p><strong>Descripción:</strong> Devuelve los detalles de un pedido específico.</p>
+		<p><strong>URL:</strong> <code>orders/order/:id</code></p>
+		<p><strong>Método:</strong> <code>GET</code></p>
+		<p><strong>Headers:</strong></p>
+		<ul>
+			<li><code>x-token: &lt;JWT Token&gt;</code></li>
+		</ul>
+
+		<h4>Eliminar Pedido (lógico)</h4>
+		<p><strong>Descripción:</strong> Marca un pedido como eliminado.</p>
+		<p><strong>URL:</strong> <code>orders/delete/:id</code></p>
+		<p><strong>Método:</strong> <code>PUT</code></p>
+		<p><strong>Headers:</strong></p>
+		<ul>
+			<li><code>x-token: &lt;JWT Token&gt;</code></li>
+		</ul>
+
+		<h4>Finalizar Pedido</h4>
+		<p><strong>Descripción:</strong> Marca un pedido como finalizado.</p>
+		<p><strong>URL:</strong> <code>orders/finished/:id</code></p>
+		<p><strong>Método:</strong> <code>PUT</code></p>
+		<p><strong>Headers:</strong></p>
+		<ul>
+			<li><code>x-token: &lt;JWT Token&gt;</code></li>
+		</ul>
+
+		<h3>4. Tareas</h3>
+		<h4>Crear Tarea</h4>
+		<p><strong>Descripción:</strong> Crea una nueva tarea para los empleados.</p>
+		<p><strong>URL:</strong> <code>tasks</code></p>
+		<p><strong>Método:</strong> <code>POST</code></p>
+		<p><strong>Headers:</strong></p>
+		<ul>
+			<li><code>x-token: &lt;JWT Token&gt;</code></li>
+		</ul>
+		<p><strong>Body (JSON):</strong></p>
+		<pre><code>{
+  "title": "Envasar dulce de leche",
+  "description": "En potes de medio kilo y de un kilo."
+}</code></pre>
+
+		<h4>Obtener Tareas</h4>
+		<p><strong>Descripción:</strong> Lista todas las tareas activas.</p>
+		<p><strong>URL:</strong> <code>tasks</code></p>
+		<p><strong>Método:</strong> <code>GET</code></p>
+		<p><strong>Headers:</strong></p>
+		<ul>
+			<li><code>x-token: &lt;JWT Token&gt;</code></li>
+		</ul>
+
+		<h4>Actualizar Tarea</h4>
+		<p><strong>Descripción:</strong> Modifica una tarea existente.</p>
+		<p><strong>URL:</strong> <code>tasks/:id</code></p>
+		<p><strong>Método:</strong> <code>PUT</code></p>
+		<p><strong>Headers:</strong></p>
+		<ul>
+			<li><code>x-token: &lt;JWT Token&gt;</code></li>
+		</ul>
+		<p><strong>Body (JSON):</strong></p>
+		<pre><code>{
+  "title": "Nuevo título (opcional)",
+  "description": "Nueva descripción (opcional)"
+}</code></pre>
+
+		<h4>Eliminar Tarea (lógico)</h4>
+		<p><strong>Descripción:</strong> Marca una tarea como eliminada.</p>
+		<p><strong>URL:</strong> <code>tasks/delete/:id</code></p>
+		<p><strong>Método:</strong> <code>PUT</code></p>
+		<p><strong>Headers:</strong></p>
+		<ul>
+			<li><code>x-token: &lt;JWT Token&gt;</code></li>
+		</ul>
+
+		<h4>Finalizar Tarea</h4>
+		<p><strong>Descripción:</strong> Marca una tarea como finalizada.</p>
+		<p><strong>URL:</strong> <code>tasks/finished/:id</code></p>
+		<p><strong>Método:</strong> <code>PUT</code></p>
+		<p><strong>Headers:</strong></p>
+		<ul>
+			<li><code>x-token: &lt;JWT Token&gt;</code></li>
+		</ul>
+
+		<h3>5. Búsquedas</h3>
+		<h4>Buscar Pedidos</h4>
+		<p><strong>Descripción:</strong> Busca pedidos mediante un término.</p>
+		<p><strong>URL:</strong> <code>search/orders/:term</code></p>
+		<p><strong>Método:</strong> <code>GET</code></p>
+		<p><strong>Headers:</strong></p>
+		<ul>
+			<li><code>x-token: &lt;JWT Token&gt;</code></li>
+		</ul>
 	</body>
 </html>
