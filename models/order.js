@@ -17,8 +17,8 @@ const orderSchema = Schema({
 		required: true,
 	},
 	dateOfOrder: {
-		type: Date,
-		default: Date.now,
+		type: String,
+		default: new Date().toLocaleDateString(),
 	},
 	date: {
 		type: String,
@@ -58,7 +58,7 @@ const orderSchema = Schema({
 });
 
 orderSchema.methods.toJSON = function () {
-	const { __v, _id, status, ...order } = this.toObject();
+	const { __v, ...order } = this.toObject();
 
 	return order;
 };
