@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="styles.css" />
 		<title>API LA REPOSTERA</title>
 	</head>
 	<body>
@@ -19,6 +20,7 @@
   "email": "test1@gmail.com",
   "password": "123456"
 }</code></pre>
+		<hr />
 
 		<h3>2. Usuarios</h3>
 		<h4>Crear Usuario</h4>
@@ -32,6 +34,7 @@
   "password": "123456",
   "role": "ADMIN_ROLE"
 }</code></pre>
+		<hr />
 
 		<h3>3. Pedidos</h3>
 		<h4>Crear Pedido</h4>
@@ -67,6 +70,7 @@
 			<li><code>phone</code> (string): Teléfono del cliente.</li>
 			<li><code>hour</code> (string): Hora del pedido.</li>
 		</ul>
+		<hr />
 
 		<h4>Actualizar Pedido</h4>
 		<p>
@@ -95,6 +99,7 @@
 			<strong>Nota:</strong> Si no se incluye un campo en el body, el valor existente
 			permanecerá sin cambios.
 		</p>
+		<hr />
 
 		<h4>Obtener Pedidos</h4>
 		<p><strong>Descripción:</strong> Lista todos los pedidos.</p>
@@ -104,6 +109,7 @@
 		<ul>
 			<li><code>x-token: &lt;JWT Token&gt;</code></li>
 		</ul>
+		<hr />
 
 		<h4>Obtener Pedido por ID</h4>
 		<p><strong>Descripción:</strong> Devuelve los detalles de un pedido específico.</p>
@@ -113,6 +119,7 @@
 		<ul>
 			<li><code>x-token: &lt;JWT Token&gt;</code></li>
 		</ul>
+		<hr />
 
 		<h4>Eliminar Pedido (lógico)</h4>
 		<p><strong>Descripción:</strong> Marca un pedido como eliminado.</p>
@@ -122,6 +129,7 @@
 		<ul>
 			<li><code>x-token: &lt;JWT Token&gt;</code></li>
 		</ul>
+		<hr />
 
 		<h4>Finalizar Pedido</h4>
 		<p><strong>Descripción:</strong> Marca un pedido como finalizado.</p>
@@ -131,6 +139,7 @@
 		<ul>
 			<li><code>x-token: &lt;JWT Token&gt;</code></li>
 		</ul>
+		<hr />
 
 		<h3>4. Tareas</h3>
 		<h4>Crear Tarea</h4>
@@ -146,6 +155,7 @@
   "title": "Envasar dulce de leche",
   "description": "En potes de medio kilo y de un kilo."
 }</code></pre>
+		<hr />
 
 		<h4>Obtener Tareas</h4>
 		<p><strong>Descripción:</strong> Lista todas las tareas activas.</p>
@@ -155,6 +165,7 @@
 		<ul>
 			<li><code>x-token: &lt;JWT Token&gt;</code></li>
 		</ul>
+		<hr />
 
 		<h4>Actualizar Tarea</h4>
 		<p><strong>Descripción:</strong> Modifica una tarea existente.</p>
@@ -169,6 +180,7 @@
   "title": "Nuevo título (opcional)",
   "description": "Nueva descripción (opcional)"
 }</code></pre>
+		<hr />
 
 		<h4>Eliminar Tarea (lógico)</h4>
 		<p><strong>Descripción:</strong> Marca una tarea como eliminada.</p>
@@ -178,6 +190,7 @@
 		<ul>
 			<li><code>x-token: &lt;JWT Token&gt;</code></li>
 		</ul>
+		<hr />
 
 		<h4>Finalizar Tarea</h4>
 		<p><strong>Descripción:</strong> Marca una tarea como finalizada.</p>
@@ -187,6 +200,7 @@
 		<ul>
 			<li><code>x-token: &lt;JWT Token&gt;</code></li>
 		</ul>
+		<hr />
 
 		<h3>5. Búsquedas</h3>
 		<h4>Buscar Pedidos</h4>
@@ -197,5 +211,6 @@
 		<ul>
 			<li><code>x-token: &lt;JWT Token&gt;</code></li>
 		</ul>
+		<hr />
 	</body>
 </html>
